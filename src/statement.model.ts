@@ -1,10 +1,7 @@
-import { TransactionModel } from './transaction.model';
 import { PositionModel } from './position.model';
+import { TransactionSetModel } from './transactionSet.model';
 
 export interface StatementModel {
-  transactions?: TransactionModel[];
+  transactionSets: TransactionSetModel[];
   positions?: PositionModel[];
-  ledgerBalance?: number;
-  availableBalance?: number;
-  balanceAsOf?: Date;
 }

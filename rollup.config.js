@@ -6,12 +6,12 @@ import commonjs from '@rollup/plugin-commonjs';
 export default {
   input: 'src/index.ts',
   output: [
-    {
-      file: pkg.main,
-      format: 'cjs',
-      exports: 'named',
-      sourcemap: true
-    },
+    // {
+    //   file: pkg.main,
+    //   format: 'cjs',
+    //   exports: 'named',
+    //   sourcemap: true
+    // },
     {
       file: pkg.module,
       format: 'es',
@@ -32,7 +32,7 @@ export default {
       typescript: require('typescript'),
       clean: true,
       tsconfig: 'src/tsconfig.lib.json',
-      tsconfigOverride: { compilerOptions: { module: 'es2015' } }
+      tsconfigOverride: { compilerOptions: { module: 'es6' } }
     })
   ]
 };

@@ -1,4 +1,3 @@
-import { OfxDateUtil } from './ofx-date.util';
 import { PositionModel } from '../position.model';
 import {
   OfxInvestmentPositionType,
@@ -81,7 +80,7 @@ export class OfxInvestmentPositionAdapter {
     typeName: string
   ): PositionModel {
     return {
-      dateOfPrice: OfxDateUtil.OfxDateToDate(positionType.INVPOS.DTPRICEASOF),
+      dateOfPrice: positionType.INVPOS.DTPRICEASOF,
       marketValue: parseFloat(positionType.INVPOS.MKTVAL),
       memo: positionType.INVPOS.MEMO,
       positionType: typeName,
@@ -95,7 +94,7 @@ export class OfxInvestmentPositionAdapter {
     response: OfxInvestmentStatementResponse
   ): PositionModel {
     return {
-      dateOfPrice: OfxDateUtil.OfxDateToDate(response.DTASOF),
+      dateOfPrice: response.DTASOF,
       marketValue: parseFloat(response.INVBAL.AVAILCASH),
       memo: undefined,
       positionType: 'CASH',

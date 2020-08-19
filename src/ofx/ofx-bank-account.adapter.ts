@@ -6,25 +6,19 @@ export class OfxBankAccountAdapter {
     accountInfo: OfxBankAccount,
     accountFrom?: OfxBankAccountFrom
   ): AccountModel {
-    let accountNumber;
-    let bankId;
-    let accountType;
-    let serviceStatus;
     if (accountFrom) {
-      accountNumber = accountFrom.ACCTID;
-      bankId = accountFrom.BANKID;
-      accountType = accountFrom.ACCTTYPE;
+      return {
+        bankId: accountFrom.BANKID,
+        accountId: accountFrom.ACCTID,
+        ofxAccountType: accountFrom.ACCTTYPE,
+      }
     } else {
-      accountNumber = accountInfo.BANKACCTINFO.BANKACCTFROM.ACCTID;
-      accountType = accountInfo.BANKACCTINFO.BANKACCTFROM.ACCTTYPE;
-      bankId = accountInfo.BANKACCTINFO.BANKACCTFROM.BANKID;
-      serviceStatus = accountInfo.BANKACCTINFO.SVCSTATUS;
+      return {
+        accountId: accountInfo.BANKACCTINFO.BANKACCTFROM.ACCTID,
+        ofxAccountType: accountInfo.BANKACCTINFO.BANKACCTFROM.ACCTTYPE,
+        bankId: accountInfo.BANKACCTINFO.BANKACCTFROM.BANKID,
+        serviceStatus: accountInfo.BANKACCTINFO.SVCSTATUS
+      }
     }
-    return {
-      accountId: accountNumber,
-      bankId: bankId,
-      ofxAccountType: accountType,
-      serviceStatus: serviceStatus
-    };
   }
 }

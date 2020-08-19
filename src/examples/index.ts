@@ -1,5 +1,5 @@
-import * as prompts from 'prompts';
-import * as fs from 'fs';
+import prompts from 'prompts';
+import fs from 'fs';
 import { OfxCarbonator } from '../ofx';
 
 const main = async () => {

@@ -6,12 +6,12 @@ export interface OfxBody {
         ACCTINFORS: {
           DTACCTUP: string;
           ACCTINFO:
-            | OfxCreditCardAccount
-            | OfxCreditCardAccount[]
-            | OfxInvestmentAccount
-            | OfxInvestmentAccount[]
-            | OfxBankAccount
-            | OfxBankAccount[];
+          | OfxCreditCardAccount
+          | OfxCreditCardAccount[]
+          | OfxInvestmentAccount
+          | OfxInvestmentAccount[]
+          | OfxBankAccount
+          | OfxBankAccount[];
         };
       };
     };
@@ -162,17 +162,42 @@ export interface OfxInvestmentBankTransaction {
   STMTTRN: OfxStatementTransaction;
 }
 
+export type OfxAccountType =
+  'CHECKING'
+  | 'SAVINGS'
+  | 'MONEYMRKT'
+  | 'CREDITLINE'
+  | 'CD'
+  | 'CREDITCARD'
+  | 'INVESTMENT'
+  | 'LOAN'
+
+export type LoanAccountType =
+  'AUTO'
+  | 'CONSUMER'
+  | 'MORTGAGE'
+  | 'COMMERCIAL'
+  | 'STUDENT'
+  | 'MILITARY'
+  | 'SMB'
+  | 'CONSTR'
+  | 'HOMEEQUITY'
+
+export type ServiceStatus = 'AVAIL' | 'PEND' | 'ACTIVE'
+
+export interface OfxCreditCardAccountFrom {
+  BANKID?: string;
+  BRANCHID?: string;
+  ACCTID: string;
+}
+
 export interface OfxCreditCardAccount {
   CCACCTINFO: {
-    CCACCTFROM: {
-      ACCTID: string;
-      ACCTTYPE: 'CREDITCARD';
-      BANKID: string;
-    };
+    CCACCTFROM: OfxCreditCardAccountFrom;
     SUPTXDL: string;
     XFERSRC: string;
     XFERDEST: string;
-    SVCSTATUS: 'AVAIL' | 'PEND' | 'ACTIVE';
+    SVCSTATUS: ServiceStatus;
   };
 }
 
@@ -186,18 +211,20 @@ export interface OfxLoanAccount {
     SUPTXDL: string;
     XFERSRC: string;
     XFERDEST: string;
-    SVCSTATUS: 'AVAIL' | 'PEND' | 'ACTIVE';
+    SVCSTATUS: ServiceStatus;
   };
+}
+
+export interface OfxInvestmentAccountFrom {
+  ACCTID: string;
+  BROKERID: string;
 }
 
 export interface OfxInvestmentAccount {
   INVACCTINFO: {
     CHECKING: string;
-    INVACCTFROM: {
-      ACCTID: string;
-      BROKERID: string;
-    };
-    SVCSTATUS: 'AVAIL' | 'PEND' | 'ACTIVE';
+    INVACCTFROM: OfxInvestmentAccountFrom;
+    SVCSTATUS: ServiceStatus;
     USPRODUCTTYPE: string;
   };
 }
@@ -208,23 +235,15 @@ export interface OfxBankAccount {
     SUPTXDL: string;
     XFERSRC: string;
     XFERDEST: string;
-    SVCSTATUS: string;
+    SVCSTATUS: ServiceStatus;
   };
 }
 
 export interface OfxBankAccountFrom {
   BANKID: string;
+  BRANCHID?: string;
   ACCTID: string;
-  ACCTTYPE?:
-    | 'CHECKING'
-    | 'SAVINGS'
-    | 'MONEYMARKET'
-    | 'MONEYMRKT'
-    | 'CREDITLINE'
-    | 'CD'
-    | 'CREDITCARD'
-    | 'INVESTMENT'
-    | undefined;
+  ACCTTYPE?: OfxAccountType;
 }
 
 export interface OfxBalance {

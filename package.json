@@ -1,31 +1,35 @@
 {
-  "name": "@bakesaled/carbonate",
+  "name": "@aneuf/carbonate",
   "version": "1.1.0",
-  "description": "A tool that converts financial data from OFX, QFX, or CSV into JSON.",
-  "author": "Brandon Eleuterio",
+  "description": "A tool that converts financial data from OFX, QFX, or CSV into JSON. Forked from https://github.com/bakesaled/carbonate",
+  "author": {
+    "name": "Aaron Neufeld",
+    "email": "aaron.neufeld@uwaterloo.ca"
+  },
   "license": "MIT",
   "keywords": [
     "TypeScript",
-    "JavaScript",
     "Open Financial Exchange",
+    "financial transactions",
     "OFX"
-  ],
-  "files": [
-    "dist"
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bakesaled/carbonate.git"
+    "url": "git+https://github.com/AaronNeufeld/carbonate.git"
   },
-  "homepage": "https://github.com/bakesaled/carbonate#readme",
+  "homepage": "https://github.com/AaronNeufeld/carbonate#readme",
+  "files": [
+    "dist"
+  ],
   "main": "dist/main.js",
   "module": "dist/main.es.js",
   "jsnext:main": "dist/index.es.js",
   "typings": "dist/index.d.ts",
   "scripts": {
-    "prebuild": "rimraf dist",
+    "_prebuild": "rimraf dist/*",
     "build": "rollup -c",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
+    "watch": "tsc-watch",
     "start": "tsc-watch --onSuccess \"node ./dist/examples/index.js\"",
     "lint": "tslint -p tsconfig.json",
     "test": "jest",
@@ -36,7 +40,8 @@
     "prepublishOnly": "yarn build"
   },
   "dependencies": {
-    "date-fns": "^2.9.0",
+    "@types/xml2js": "^0.4.5",
+    "dayjs": "^1.8.26",
     "prompts": "^2.3.1",
     "xml2js": "^0.4.23"
   },
@@ -61,8 +66,6 @@
     "typescript": "^3.7.4"
   },
   "peerDependencies": {
-    "date-fns": "^2.9.0",
-    "xml2js": "^0.4.23",
     "stream": "~0.0.2",
     "timers": "^0.1.1"
   },

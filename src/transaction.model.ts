@@ -1,7 +1,9 @@
+import { OfxDateModel } from "./ofxDate.model";
+
 export interface TransactionModel {
   fitId?: string;
-  datePosted?: Date;
-  dateAvailable?: Date;
+  datePosted?: OfxDateModel;
+  dateAvailable?: OfxDateModel;
   amount?: number;
   transactionType?: string;
   name?: string;
@@ -20,8 +22,8 @@ export interface TransactionModel {
   secId?: string;
   serverTransactionId?: string;
   imageData?: any;
-  dateTrade?: Date;
-  dateSettle?: Date;
+  dateTrade?: OfxDateModel;
+  dateSettle?: OfxDateModel;
 }
 
 export interface PayeeModel {

@@ -1,6 +1,6 @@
 export interface PositionModel {
   secId?: string;
-  dateOfPrice?: Date;
+  dateOfPrice?: string;
   units?: number;
   unitPrice?: number;
   marketValue?: number;

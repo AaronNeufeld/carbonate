@@ -2,14 +2,18 @@ import {
   OfxInvestmentPositionType,
   OfxInvestmentStatementResponse
 } from './index';
-import { OfxDateUtil } from './ofx-date.util';
-import { AccountBalanceModel } from '../account-balance.model';
+import { AccountBalanceModel } from '../accountBalance.model';
 import { NumUtil } from './num.util';
+import { OfxDateUtil } from './ofx-date.util';
 
 export class OfxInvestmentBalanceAdapter {
   public static convertToAccountBalance(
-    statementResponse: OfxInvestmentStatementResponse
-  ): AccountBalanceModel {
+    statementResponse?: OfxInvestmentStatementResponse
+  ): AccountBalanceModel | undefined {
+    if (!statementResponse) {
+      return
+    }
+
     let balance = statementResponse.INVBAL
       ? parseFloat(statementResponse.INVBAL.AVAILCASH)
       : 0;
@@ -22,7 +26,7 @@ export class OfxInvestmentBalanceAdapter {
     // }
     return {
       balanceAmount: balance,
-      balanceAsOf: OfxDateUtil.OfxDateToDate(statementResponse.DTASOF)
+      tsBalanceAsOf: OfxDateUtil.parseOfxDate(statementResponse.DTASOF)
     };
   }
 

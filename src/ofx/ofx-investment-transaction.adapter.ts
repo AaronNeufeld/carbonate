@@ -6,8 +6,8 @@ import {
   OfxInvestmentTransactionList
 } from './ofx-body';
 import { TransactionModel } from '../transaction.model';
-import { OfxDateUtil } from './ofx-date.util';
 import { OfxStatementTransactionAdapter } from './ofx-statement-transaction.adapter';
+import { OfxDateUtil } from './ofx-date.util';
 
 export class OfxInvestmentTransactionAdapter {
   public static convertBuyOtherToInvestmentTransaction(
@@ -19,8 +19,8 @@ export class OfxInvestmentTransactionAdapter {
       fitId: trans.INVBUY.INVTRAN.FITID,
       name: undefined,
       memo: trans.INVBUY.INVTRAN.MEMO,
-      dateTrade: OfxDateUtil.OfxDateToDate(trans.INVBUY.INVTRAN.DTTRADE),
-      dateSettle: OfxDateUtil.OfxDateToDate(trans.INVBUY.INVTRAN.DTSETTLE),
+      dateTrade: OfxDateUtil.parseOfxDate(trans.INVBUY.INVTRAN.DTTRADE),
+      dateSettle: OfxDateUtil.parseOfxDate(trans.INVBUY.INVTRAN.DTSETTLE),
       correctFitId: trans.INVBUY.INVTRAN.REVERSALFITID,
       price: parseFloat(trans.INVBUY.UNITPRICE),
       quantity: parseFloat(trans.INVBUY.UNITS),
@@ -37,8 +37,8 @@ export class OfxInvestmentTransactionAdapter {
       fitId: trans.INVBUY.INVTRAN.FITID,
       name: undefined,
       memo: trans.INVBUY.INVTRAN.MEMO,
-      dateTrade: OfxDateUtil.OfxDateToDate(trans.INVBUY.INVTRAN.DTTRADE),
-      dateSettle: OfxDateUtil.OfxDateToDate(trans.INVBUY.INVTRAN.DTSETTLE),
+      dateTrade: OfxDateUtil.parseOfxDate(trans.INVBUY.INVTRAN.DTTRADE),
+      dateSettle: OfxDateUtil.parseOfxDate(trans.INVBUY.INVTRAN.DTSETTLE),
       correctFitId: trans.INVBUY.INVTRAN.REVERSALFITID,
       price: parseFloat(trans.INVBUY.UNITPRICE),
       quantity: parseFloat(trans.INVBUY.UNITS),
@@ -55,8 +55,8 @@ export class OfxInvestmentTransactionAdapter {
       fitId: trans.INVTRAN.FITID,
       name: undefined,
       memo: trans.INVTRAN.MEMO,
-      dateTrade: OfxDateUtil.OfxDateToDate(trans.INVTRAN.DTTRADE),
-      dateSettle: OfxDateUtil.OfxDateToDate(trans.INVTRAN.DTSETTLE),
+      dateTrade: OfxDateUtil.parseOfxDate(trans.INVTRAN.DTTRADE),
+      dateSettle: OfxDateUtil.parseOfxDate(trans.INVTRAN.DTSETTLE),
       correctFitId: trans.INVTRAN.REVERSALFITID,
       secId: trans.SECID.UNIQUEID
     };
@@ -71,8 +71,8 @@ export class OfxInvestmentTransactionAdapter {
       fitId: trans.INVTRAN.FITID,
       name: undefined,
       memo: trans.INVTRAN.MEMO,
-      dateTrade: OfxDateUtil.OfxDateToDate(trans.INVTRAN.DTTRADE),
-      dateSettle: OfxDateUtil.OfxDateToDate(trans.INVTRAN.DTSETTLE),
+      dateTrade: OfxDateUtil.parseOfxDate(trans.INVTRAN.DTTRADE),
+      dateSettle: OfxDateUtil.parseOfxDate(trans.INVTRAN.DTSETTLE),
       correctFitId: trans.INVTRAN.REVERSALFITID,
       secId: trans.SECID.UNIQUEID
     };

@@ -1,6 +1,6 @@
-import { OfxDateUtil } from './ofx-date.util';
 import { TransactionModel } from '../transaction.model';
 import { OfxStatementTransaction } from './ofx-body';
+import { OfxDateUtil } from './ofx-date.util';
 
 export class OfxStatementTransactionAdapter {
   public static convertToTransaction(
@@ -20,8 +20,8 @@ export class OfxStatementTransactionAdapter {
       memo: trans.MEMO,
       payee: payee,
       extendedName: trans.EXTDNAME,
-      datePosted: OfxDateUtil.OfxDateToDate(trans.DTPOSTED),
-      dateAvailable: OfxDateUtil.OfxDateToDate(trans.DTAVAIL),
+      datePosted: OfxDateUtil.parseOfxDate(trans.DTPOSTED),
+      dateAvailable: OfxDateUtil.parseOfxDate(trans.DTAVAIL),
       checkNumber: trans.CHECKNUM,
       refNumber: trans.REFNUM,
       correctFitId: trans.CORRECTFITID,

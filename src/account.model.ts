@@ -1,33 +1,16 @@
-import { AccountBalanceModel } from './account-balance.model';
+import { AccountBalanceModel } from './accountBalance.model';
+import { LoanAccountType, OfxAccountType, ServiceStatus } from './ofx';
 
 export interface AccountModel {
   bankId?: string;
+  branchId?: string;
   brokerId?: string;
   accountId?: string;
-  ofxAccountType?:
-    | 'CHECKING'
-    | 'SAVINGS'
-    | 'MONEYMRKT'
-    | 'CREDITLINE'
-    | 'CD'
-    | 'CREDITCARD'
-    | 'INVESTMENT'
-    | 'LOAN'
-    | undefined;
-  loanAccountType?:
-    | 'AUTO'
-    | 'CONSUMER'
-    | 'MORTGAGE'
-    | 'COMMERCIAL'
-    | 'STUDENT'
-    | 'MILITARY'
-    | 'SMB'
-    | 'CONSTR'
-    | 'HOMEEQUITY'
-    | undefined;
-  lastUpdated?: Date;
-  serverResponseDate?: Date;
-  serviceStatus?: 'AVAIL' | 'PEND' | 'ACTIVE';
+  ofxAccountType?: OfxAccountType;
+  loanAccountType?: LoanAccountType;
+  dateLastUpdated?: string;
+  dateOfServerResponse?: string;
+  serviceStatus?: ServiceStatus;
   ledgerBalance?: AccountBalanceModel;
   availableBalance?: AccountBalanceModel;
 }
