@@ -15,6 +15,22 @@ export interface OfxBody {
         };
       };
     };
+    SIGNONMSGSRSV1: {
+      SONRS: {
+        STATUS: {
+          CODE: number,
+          SEVERITY: string,
+          MESSAGE: string
+        },
+        DTSERVER: string,
+        LANGUAGE: string,
+        FI: {
+          ORG: string,
+          FID: string
+        }
+        'INTU.BID': string
+      }
+    };
     BANKMSGSRSV1: OfxBankMessage;
     INVSTMTMSGSRSV1: OfxInvestmentMessage;
     CREDITCARDMSGSRSV1: OfxCreditCardMessage;

@@ -1,5 +1,5 @@
 {
-  "name": "@aneuf/carbonate",
+  "name": "@aneufeld/carbonate",
   "version": "1.1.0",
   "description": "A tool that converts financial data from OFX, QFX, or CSV into JSON. Forked from https://github.com/bakesaled/carbonate",
   "author": {

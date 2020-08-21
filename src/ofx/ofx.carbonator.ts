@@ -13,6 +13,8 @@ import { OfxCreditCardAccountAdapter } from './ofx-credit-card-account.adapter';
 import { OfxInvestmentAccountAdapter } from './ofx-investment-account.adapter';
 import { OfxDateUtil } from './ofx-date.util';
 
+type StatementContents = Omit<StatementModel, 'signOnResponse'>
+
 export class OfxCarbonator {
 
   async carbonateAccounts(xml: string): Promise<AccountModel[]> {
@@ -26,19 +28,32 @@ export class OfxCarbonator {
   async carbonateStatement(xml: string): Promise<StatementModel> {
     const body = await this.convertFromXML(xml);
 
+    let statementContents: StatementContents
     if (body.OFX.BANKMSGSRSV1) {
-      return this.carbonateBankStatement(body)
+      statementContents = this.carbonateBankStatement(body)
     } else if (body.OFX.CREDITCARDMSGSRSV1) {
-      return this.carbonateCreditCardStatement(body)
+      statementContents = this.carbonateCreditCardStatement(body)
     } else if (body.OFX.INVSTMTMSGSRSV1) {
-      return this.carbonateInvestmentStatement(body)
+      statementContents = this.carbonateInvestmentStatement(body)
     } else {
       console.error('Unknown message', body.OFX);
       throw new Error('Unknown message received from bank');
     }
+
+    return {
+      ...statementContents,
+      signOnResponse: {
+        dateOfResponse: OfxDateUtil.parseOfxDate(body.OFX.SIGNONMSGSRSV1.SONRS.DTSERVER),
+        financialInstitution: {
+          organization: body.OFX.SIGNONMSGSRSV1.SONRS.FI.ORG,
+          fid: body.OFX.SIGNONMSGSRSV1.SONRS.FI.FID,
+          intuitBID: body.OFX.SIGNONMSGSRSV1.SONRS["INTU.BID"]
+        }
+      }
+    }
   }
 
-  private carbonateBankStatement(ofxBody: OfxBody): StatementModel {
+  private carbonateBankStatement(ofxBody: OfxBody): StatementContents {
     return {
       transactionSets: [
         {
@@ -55,7 +70,7 @@ export class OfxCarbonator {
     }
   }
 
-  private carbonateCreditCardStatement(ofxBody: OfxBody): StatementModel {
+  private carbonateCreditCardStatement(ofxBody: OfxBody): StatementContents {
     return {
       transactionSets: [
         {
@@ -72,7 +87,7 @@ export class OfxCarbonator {
     }
   }
 
-  private carbonateInvestmentStatement(ofxBody: OfxBody): StatementModel {
+  private carbonateInvestmentStatement(ofxBody: OfxBody): StatementContents {
     return {
       transactionSets: [
         {
